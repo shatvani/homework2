@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  frontapp:
+    image: frontapp
+    environment:
+      - BACK_URL=http://backapp:8080
+    ports:
+      - "8080:8080"  # A frontapp elérhetővé tétele a host gépen
+    depends_on:
+      - backapp
+
+  backapp:
+    image: backapp
+    environment:
+      - APP_DEFAULT_MESSAGE=""
+    networks:
+      - internal
+    expose:
+      - "8080"  # Csak belső hálózaton elérhető
+
+networks:
+  internal:
+    driver: bridge
