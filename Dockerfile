@@ -8,7 +8,6 @@ COPY ${APP_NAME}/target/*.jar /app/app.jar
 # Környezeti változók beállítása
 ENV CUBIX_HOMEWORK="Hatvani Sándor" \
     APP_DEFAULT_MESSAGE="" \
-    BACK_URL="http://backapp:8080"
 
 # Saját címke hozzáadása
 LABEL cubix.homework.owner="Hatvani Sándor"

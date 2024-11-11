@@ -1,0 +1,9 @@
+https://github.com/shatvani/homework2.git
+
+docker build -t frontapp --build-arg APP_NAME=frontapp .
+docker build -t backapp --build-arg APP_NAME=backapp .
+
+docker-compose up
+
+docker image inspect --format='{{json .Config.Labels}}' frontapp
+docker image inspect --format='{{json .Config.Labels}}' backapp
