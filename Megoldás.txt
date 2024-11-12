@@ -1,9 +1,79 @@
 https://github.com/shatvani/homework2.git
 
 docker build -t frontapp --build-arg APP_NAME=frontapp .
+VAGY
+docker build -f Dockerfile -t frontapp --build-arg APP_NAME=frontapp .
+
 docker build -t backapp --build-arg APP_NAME=backapp .
+VAGY
+docker build -f Dockerfile -t backapp --build-arg APP_NAME=backapp .
 
 docker-compose up
 
 docker image inspect --format='{{json .Config.Labels}}' frontapp
 docker image inspect --format='{{json .Config.Labels}}' backapp
+
+
+backapp
+ - http://localhost:8081/backapp
+ {
+   "time": "2024-11-12T08:20:41.843839602",
+   "message": "hardcoded-default-backapp-message",
+   "homeworkOwner": "Hatvani Sándor",
+   "hostAddress": "172.19.0.2",
+   "extraImageData": "Cubix training"
+ }
+ 
+ - http://localhost:8081/backapp?message=Hello
+ {
+   "time": "2024-11-12T08:21:17.264236493",
+   "message": "Hello",
+   "homeworkOwner": "Hatvani Sándor",
+   "hostAddress": "172.19.0.2",
+   "extraImageData": "Cubix training"
+ }
+ 
+frontapp
+ - http://localhost:8083/frontapp/local
+ {
+   "msForReply": 0,
+   "backappMessage": "frontapp:",
+   "frontappHomeworkOwner": "Hatvani Sándor",
+   "frontappHostAddress": "172.19.0.3",
+   "backappHomeworkOwner": null,
+   "backappHostAddress": null,
+   "doExtraImageDataMatch": true
+ }
+ 
+ - http://localhost:8083/frontapp/local?message=Hello
+ {
+   "msForReply": 0,
+   "backappMessage": "frontapp:Hello",
+   "frontappHomeworkOwner": "Hatvani Sándor",
+   "frontappHostAddress": "172.19.0.3",
+   "backappHomeworkOwner": null,
+   "backappHostAddress": null,
+   "doExtraImageDataMatch": true
+ }
+ 
+ - http://localhost:8083/frontapp?message=Hello
+ {
+   "msForReply": 10,
+   "backappMessage": "Hello",
+   "frontappHomeworkOwner": "Hatvani Sándor",
+   "frontappHostAddress": "172.19.0.3",
+   "backappHomeworkOwner": "Hatvani Sándor",
+   "backappHostAddress": "172.19.0.2",
+   "doExtraImageDataMatch": true
+ }
+ 
+ - http://localhost:8083/frontapp
+ {
+   "msForReply": 3,
+   "backappMessage": "hardcoded-default-backapp-message",
+   "frontappHomeworkOwner": "Hatvani Sándor",
+   "frontappHostAddress": "172.19.0.3",
+   "backappHomeworkOwner": "Hatvani Sándor",
+   "backappHostAddress": "172.19.0.2",
+   "doExtraImageDataMatch": true
+ }
